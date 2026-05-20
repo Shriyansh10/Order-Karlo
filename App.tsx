@@ -1,20 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import RootNavigator from "./src/navigators/RootNavigator";
+import { ProfileContext, type ProfileType } from "./src/context/ProfileContext";
+import { enableScreens } from "react-native-screens";
+import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+
+enableScreens();
 
 export default function App() {
+  const [profile, setProfile] = React.useState<ProfileType | null>(null);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ProfileContext.Provider value={{ profile, setProfile }}>
+      <SafeAreaProvider>
+        <SafeAreaView style={{ flex: 1 }}>
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </SafeAreaView>
+      </SafeAreaProvider>
+    </ProfileContext.Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
