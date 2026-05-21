@@ -22,6 +22,7 @@ function RootNavigator() {
   React.useEffect(() => {
     const setup = async () => {
       const onboarded = await getData("isOnboarded");
+      // const onboarded = false; // For testing purposes, remove this line in production
       setIsOnboarded(onboarded);
 
       const loggedInUser = await getData("loggedInUser");
