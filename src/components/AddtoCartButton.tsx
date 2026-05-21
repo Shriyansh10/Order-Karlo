@@ -10,14 +10,12 @@ const AddtoCartButton = ({
   item: DishesType;
   setCart: React.Dispatch<React.SetStateAction<CartType>>;
 }) => {
-
   
   return (
     <Pressable
+      style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
       onPress={() => {
-        // Check if the item is already in the cart
         setCart((prevCart) => {
-          // If it is, increase the quantity
           return {
             ...prevCart,
             [item.id]: {
@@ -31,11 +29,39 @@ const AddtoCartButton = ({
         });
       }}
     >
-      <Text>Add to Cart</Text>
+      <Text style={styles.text}>ADD</Text>
+      <Text style={styles.plus}>+</Text>
     </Pressable>
   );
 };
 
 export default AddtoCartButton;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  button: {
+    minWidth: 92,
+    height: 38,
+    borderRadius: 10,
+    borderWidth: 1.4,
+    borderColor: "#0F8F45",
+    backgroundColor: "#FFFFFF",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+  },
+  buttonPressed: {
+    backgroundColor: "#ECF8F0",
+  },
+  text: {
+    color: "#0F8F45",
+    fontSize: 15,
+    fontWeight: "900",
+  },
+  plus: {
+    color: "#0F8F45",
+    fontSize: 19,
+    fontWeight: "900",
+    marginTop: -2,
+  },
+});

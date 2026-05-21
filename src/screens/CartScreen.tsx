@@ -102,9 +102,9 @@ const CartScreen = () => {
                 </View>
                 <View>
                   <View>
-                    <SubtractDishButton item={item[1]} setCart={setCart} />
+                    <SubtractDishButton item={item[1]} setCart={setCart} dishId={item[0]} />
                     <Text>{cart[item[0]]?.quantity}</Text>
-                    <AddDishButton item={item[1]} setCart={setCart} />
+                    <AddDishButton item={item[1]} setCart={setCart} dishId={item[0]} />
                   </View>
                   <Text>
                     ₹{(itemData.price * itemData.quantity).toFixed(2)}

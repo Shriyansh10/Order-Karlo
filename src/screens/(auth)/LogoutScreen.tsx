@@ -19,13 +19,25 @@ const LogoutScreen = () => {
   const navigation = useNavigation<any>();
   return (
     <View>
-      <Button
-        onPress={() => {
-          handleLogout();
-        }}
-      >
-        Logout
-      </Button>
+      <View>
+        <Button
+          onPress={() => {
+            handleLogout();
+          }}
+        >
+          Logout
+        </Button>
+      </View>
+      <View>
+        <Button
+          onPress={() => {
+            removeData("orders");
+            alert("Order history cleared!");
+          }}
+        >
+          Clear Order History
+        </Button>
+      </View>
     </View>
   );
 };
