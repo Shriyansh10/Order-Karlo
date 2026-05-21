@@ -2,23 +2,22 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import RootNavigator from "./src/navigators/RootNavigator";
 import { ProfileContext, type ProfileType } from "./src/context/ProfileContext";
-import { enableScreens } from "react-native-screens";
-import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
-
-enableScreens();
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { OrderContext, type OrderType } from "./src/context/OrderContext";
 
 export default function App() {
   const [profile, setProfile] = React.useState<ProfileType | null>(null);
+  const [order, setOrder] = React.useState<OrderType>({});
 
   return (
+    <OrderContext.Provider value={{ order, setOrder }}>
     <ProfileContext.Provider value={{ profile, setProfile }}>
       <SafeAreaProvider>
-        <SafeAreaView style={{ flex: 1 }}>
-          <NavigationContainer>
-            <RootNavigator />
-          </NavigationContainer>
-        </SafeAreaView>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
       </SafeAreaProvider>
     </ProfileContext.Provider>
+    </OrderContext.Provider>
   );
 }

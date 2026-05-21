@@ -1,23 +1,6 @@
-export type RestaurantsType = {
-  id: string;
-  name: string;
-  image: string;
-  location: string;
-  tags: string[];
-  vegOnly: boolean;
-  rating: number;
-  dishes: DishesType[];
-}[];
+import { RestaurantsType } from "../context/DataTypes";
 
-export type DishesType = {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  dishType: "veg" | "non-veg";
-};
-
-export const restaurants: RestaurantsType = [
+export const restaurantsData: RestaurantsType = [
   {
     id: "1",
     name: "Green Tadka",

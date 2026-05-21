@@ -6,9 +6,9 @@ import { useNavigation } from "@react-navigation/native";
 import { ProfileContext, type ProfileContextType } from "../../context/ProfileContext";
 
 const LogoutScreen = () => {
+  const context = React.useContext<ProfileContextType|null>(ProfileContext)
   const handleLogout = () => {
     removeData("loggedInUser");
-    const context = React.useContext<ProfileContextType|null>(ProfileContext)
     context?.setProfile(null);
     alert("Logged out successfully");
     navigation.reset({

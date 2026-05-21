@@ -10,11 +10,8 @@ import {
 import { Button } from "@react-navigation/elements";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import {
-  restaurants,
-  type RestaurantsType,
-  type DishesType,
-} from "../data/restaurant";
+import { restaurantsData } from "../data/restaurantData";
+import { type RestaurantsType } from "../context/DataTypes";
 import Ionicons from "@react-native-vector-icons/ionicons";
 import HomescreenRestaurantCard from "../components/HomescreenRestaurantCard";
 
@@ -25,20 +22,20 @@ const Homescreen = ({ searchText }: { searchText: string }) => {
   const [selectedDish, setSelectedDish] = React.useState<string | null>(null);
 
   const [filteredRestaurants, setFilteredRestaurants] =
-    React.useState<RestaurantsType>(restaurants);
+    React.useState<RestaurantsType>(restaurantsData);
 
   const toggleSwitch = () => {
     setVegOnly((previousState) => !previousState);
     if (vegOnly === false) {
       setFilteredRestaurants(
-        restaurants.filter((restaurant) => {
+        restaurantsData.filter((restaurant) => {
           if (restaurant.vegOnly === true) {
             return true;
           }
         }),
       );
     } else {
-      setFilteredRestaurants(restaurants);
+      setFilteredRestaurants(restaurantsData);
     }
   };
 
@@ -46,7 +43,7 @@ const Homescreen = ({ searchText }: { searchText: string }) => {
     if (vegOnly === true) {
       if (searchText === "") {
         setFilteredRestaurants(
-          restaurants.filter((restaurant) => {
+          restaurantsData.filter((restaurant) => {
             if (restaurant.vegOnly === true) {
               return true;
             }
@@ -54,7 +51,7 @@ const Homescreen = ({ searchText }: { searchText: string }) => {
         );
       } else
         setFilteredRestaurants(
-          restaurants.filter((restaurant) => {
+          restaurantsData.filter((restaurant) => {
             if (
               restaurant.name
                 .toLowerCase()
@@ -67,7 +64,7 @@ const Homescreen = ({ searchText }: { searchText: string }) => {
         );
     } else {
       setFilteredRestaurants(
-        restaurants.filter((restaurant) => {
+        restaurantsData.filter((restaurant) => {
           if (
             restaurant.name.toLowerCase().includes(searchText.toLowerCase())
           ) {
@@ -88,11 +85,6 @@ const Homescreen = ({ searchText }: { searchText: string }) => {
         marginBottom: 10,
       }}
     >
-      {/* <Text>{searchText}</Text>
-      <Button onPress={() => {
-        navigation.navigate('Restrauant');
-      }}>Press me</Button> */}
-      {/* This is for filters */}
       <View>
         <View>
           <Text>Veg mode</Text>
@@ -144,13 +136,14 @@ const Homescreen = ({ searchText }: { searchText: string }) => {
         renderItem={({ item }) => {
           return (
             <Pressable
-            style={{width: '100%', marginBottom: 20}}
+              style={{ width: "100%", marginBottom: 20 }}
               onPress={() =>
-                navigation.navigate("Restrauant", { restaurantId: item.id })
+                navigation.navigate("Restaurant", { restaurantId: item.id })
               }
             >
               <HomescreenRestaurantCard
                 name={item.name}
+                location={item.location}
                 image={item.image}
                 rating={item.rating}
                 vegOnly={item.vegOnly}

@@ -7,7 +7,7 @@ export type ExpectedDataType = {
 } | boolean | {
   name: string;
   email: string;
-};
+}| string;
 
 export const setData = async (
   key: string,
