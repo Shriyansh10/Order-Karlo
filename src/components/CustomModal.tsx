@@ -1,12 +1,9 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import {
-  type OrderContextType,
-  type OrderType,
-  OrderContext,
-} from "../context/OrderContext";
+import { type OrderType } from "../context/DataTypes";
 import { setData, getData } from "../services/local-data";
+import { CartContext } from "../context/CartContext";
 
 const CustomModal = ({
   restaurantId,
@@ -17,20 +14,16 @@ const CustomModal = ({
   restaurantId?: string;
   textToDisplay: string;
   comp: string;
-  orderDetails?: OrderType[keyof OrderType]| null;
+  orderDetails?: OrderType[keyof OrderType] | null;
 }) => {
   const navigation = useNavigation<any>();
-  const context = React.useContext<OrderContextType>(OrderContext);
-  const { order, setOrder } = context!;
 
-  React.useEffect(() => {
-    console.log(order);
-
-  }, [order]);
-
+    const context = React.useContext(CartContext);
+  const { setCart } = context!;
   return (
     <View
       style={{
+        // Pin the modal near the bottom of the screen.
         position: "absolute",
         bottom: 40,
         left: 20,
@@ -59,20 +52,21 @@ const CustomModal = ({
       )}
       {comp === "Order" && (
         <Pressable
-
           onPress={async () => {
-            const oldOrders = await getData("orders");
+            // Persist the order before navigating away.
+            const oldOrders: OrderType[keyof OrderType][] | null =
+              await getData("orders");
             if (oldOrders) {
-              await setData("orders", JSON.stringify([...JSON.parse(oldOrders), orderDetails]));
+              await setData("orders", [
+                ...oldOrders,
+                orderDetails,
+              ] as OrderType[keyof OrderType][]);
             } else {
-              await setData("orders", JSON.stringify([orderDetails]));
+              await setData("orders", [
+                orderDetails,
+              ] as OrderType[keyof OrderType][]);
             }
-            setOrder((prev) => {
-              return {
-                ...prev,
-                [Object.keys(order).length]: orderDetails!,
-              };
-            });
+            setCart({});
             alert("Order Placed!");
             navigation.goBack();
           }}

@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import type { OrderType } from "../context/DataTypes";
 
 export type ExpectedDataType = {
   name: string;
@@ -7,7 +8,7 @@ export type ExpectedDataType = {
 } | boolean | {
   name: string;
   email: string;
-}| string;
+}| OrderType[keyof OrderType][];
 
 export const setData = async (
   key: string,

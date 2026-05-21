@@ -7,37 +7,34 @@ import {
   Pressable,
   FlatList,
 } from "react-native";
-import { Button } from "@react-navigation/elements";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { restaurantsData } from "../data/restaurantData";
 import { type RestaurantsType } from "../context/DataTypes";
-import Ionicons from "@react-native-vector-icons/ionicons";
 import HomescreenRestaurantCard from "../components/HomescreenRestaurantCard";
 
-const Homescreen = ({ searchText }: { searchText: string }) => {
+const Homescreen = ({ searchText, vegOnly }: { searchText: string; vegOnly: boolean }) => {
   const navigation = useNavigation<any>();
-  const [vegOnly, setVegOnly] = React.useState(true);
+  // const [vegOnly, setVegOnly] = React.useState(true);
   const [modalVisible, setModalVisible] = React.useState(false);
-  const [selectedDish, setSelectedDish] = React.useState<string | null>(null);
 
   const [filteredRestaurants, setFilteredRestaurants] =
     React.useState<RestaurantsType>(restaurantsData);
 
-  const toggleSwitch = () => {
-    setVegOnly((previousState) => !previousState);
-    if (vegOnly === false) {
-      setFilteredRestaurants(
-        restaurantsData.filter((restaurant) => {
-          if (restaurant.vegOnly === true) {
-            return true;
-          }
-        }),
-      );
-    } else {
-      setFilteredRestaurants(restaurantsData);
-    }
-  };
+  // const toggleSwitch = () => {
+  //   setVegOnly((previousState) => !previousState);
+  //   if (vegOnly === false) {
+  //     setFilteredRestaurants(
+  //       restaurantsData.filter((restaurant) => {
+  //         if (restaurant.vegOnly === true) {
+  //           return true;
+  //         }
+  //       }),
+  //     );
+  //   } else {
+  //     setFilteredRestaurants(restaurantsData);
+  //   }
+  // };
 
   React.useEffect(() => {
     if (vegOnly === true) {
@@ -73,7 +70,7 @@ const Homescreen = ({ searchText }: { searchText: string }) => {
         }),
       );
     }
-  }, [searchText]);
+  }, [searchText, vegOnly]);
 
   return (
     <View
@@ -86,7 +83,7 @@ const Homescreen = ({ searchText }: { searchText: string }) => {
       }}
     >
       <View>
-        <View>
+        {/* <View>
           <Text>Veg mode</Text>
           <Switch
             trackColor={{ false: "#7d1a1a", true: "#3ba70d" }}
@@ -95,8 +92,8 @@ const Homescreen = ({ searchText }: { searchText: string }) => {
             onValueChange={toggleSwitch}
             value={vegOnly}
           />
-        </View>
-        <View>
+        </View> */}
+        {/* <View>
           <Pressable
             onPress={() => {
               setModalVisible(true);
@@ -127,7 +124,7 @@ const Homescreen = ({ searchText }: { searchText: string }) => {
               </Pressable>
             </View>
           </Modal>
-        </View>
+        </View> */}
       </View>
 
       <FlatList

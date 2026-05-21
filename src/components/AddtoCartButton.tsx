@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { type CartType, type DishesType } from "../context/DataTypes";
+import uuid from "react-native-uuid";
 
 const AddtoCartButton = ({
   item,
@@ -20,7 +21,8 @@ const AddtoCartButton = ({
           return {
             ...prevCart,
             [item.id]: {
-              id: item.id,
+              restaurantId: item.id,
+              id: uuid.v4().toString(),
               quantity: 1,
               name: item.name,
               price: item.price,

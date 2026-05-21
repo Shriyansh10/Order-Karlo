@@ -15,6 +15,8 @@ function HomeNavigator() {
   const [restaurantsSearchText, setRestaurantsSearchText] = React.useState<string>("");
   
  const [cart, setCart] = React.useState<CartType>({});
+   const [vegOnly, setVegOnly] = React.useState(true);
+ 
 
   return (
     <CartContext.Provider value={{ cart, setCart }}>
@@ -29,11 +31,14 @@ function HomeNavigator() {
                 location="Delhi, India"
                 searchText={searchText}
                 setSearchText={setSearchText}
+                vegOnly={vegOnly}
+                setVegOnly={setVegOnly}
+                
               />
             ),
           }}
         >
-          {(props) => <HomeScreen {...props} searchText={searchText} />}
+          {(props) => <HomeScreen {...props} searchText={searchText} vegOnly={vegOnly} />}
         </Stack.Screen>
         <Stack.Screen
           name="Restaurant"

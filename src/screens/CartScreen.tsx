@@ -9,7 +9,10 @@ import SubtractDishButton from "../components/SubtractDishButton";
 
 import { CartContext } from "../context/CartContext";
 import CustomModal from "../components/CustomModal";
-import type { OrderType } from "../context/OrderContext";
+import type { OrderType } from "../context/DataTypes";
+
+import uuid from "react-native-uuid";
+
 
 const CartScreen = () => {
   const route = useRoute<any>();
@@ -28,29 +31,35 @@ const CartScreen = () => {
   >(null);
   const [itemTotal, setItemTotal] = React.useState<number>(0);
 
+
   const placeOrder = () => {
     return {
       restaurantId,
       cartItems: Object.entries(cart).map((cartItem) => {
         const [id, itemData] = cartItem;
         return {
-          id,
+          restaurantId: itemData.restaurantId,
+          id: uuid.v4().toString(),
           name: itemData.name,
           price: itemData.price,
           quantity: itemData.quantity,
         };
       }) as ItemType[],
-      totalPrice: itemTotal + 50,
+      totalPrice: total + 50,
+      id: uuid.v4().toString(),
+      time: new Date(Date.now()),
     } 
   };
 
+  const total = Object.values(cart).reduce(
+    (total, cartItem) => total + cartItem.price * cartItem.quantity,
+    0,
+  );
+
+
   React.useEffect(() => {
-    setItemTotal(
-      Object.values(cart).reduce(
-        (total, cartItem) => total + cartItem.price * cartItem.quantity,
-        0,
-      ),
-    );
+    console.log(cart);
+    setItemTotal(total);
     if (!Object.entries(cart).some((cartItem) => cartItem[1].quantity > 0)) {
       setModalVisible(false);
     } else {
@@ -104,7 +113,7 @@ const CartScreen = () => {
               </View>
             );
           }}
-          keyExtractor={(cartItem) => cartItem[0]}
+          keyExtractor={(cartItem) => cartItem[1].id}
         />
         <View>
           <Text>Item Total: ₹{itemTotal.toFixed(2)}</Text>

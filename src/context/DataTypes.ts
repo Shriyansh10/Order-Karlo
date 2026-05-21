@@ -17,8 +17,8 @@ export type DishesType = {
   dishType: "veg" | "non-veg";
 };
 
-
 export type ItemType = {
+  restaurantId: string;
   id: string;
   name: string;
   price: number;
@@ -27,4 +27,14 @@ export type ItemType = {
 
 export type CartType = {
   [key: string]: ItemType;
+};
+
+export type OrderType = {
+  [key: string]: {
+    restaurantId: string;
+    cartItems: ItemType[];
+    totalPrice: number;
+    time: Date;
+    id: string;
+  };
 };

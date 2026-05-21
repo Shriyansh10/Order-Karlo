@@ -3,14 +3,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import RootNavigator from "./src/navigators/RootNavigator";
 import { ProfileContext, type ProfileType } from "./src/context/ProfileContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { OrderContext, type OrderType } from "./src/context/OrderContext";
+import type { OrderType } from "./src/context/DataTypes";
 
 export default function App() {
   const [profile, setProfile] = React.useState<ProfileType | null>(null);
   const [order, setOrder] = React.useState<OrderType>({});
 
   return (
-    <OrderContext.Provider value={{ order, setOrder }}>
     <ProfileContext.Provider value={{ profile, setProfile }}>
       <SafeAreaProvider>
         <NavigationContainer>
@@ -18,6 +17,5 @@ export default function App() {
         </NavigationContainer>
       </SafeAreaProvider>
     </ProfileContext.Provider>
-    </OrderContext.Provider>
   );
 }
