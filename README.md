@@ -1,5 +1,7 @@
 # Demo: [Order Karlo - Food Delivery App](https://www.youtube.com/watch?v=PgUqCKZi8jc)
 
+I have added eas build in Build folder. You can install the apk and test the app on your android device. Dont worry the data is stored locally and will not cause any harm to your device. So go ahead and test the app.
+
 # Order Karlo - Food Delivery App
 
 Order Karlo is a mobile food delivery app built with Expo, React Native, and TypeScript. It lets users sign up, browse restaurants, filter vegetarian restaurants, search menus, add dishes to a cart, place orders, and view saved order history.
