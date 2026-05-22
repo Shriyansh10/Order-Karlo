@@ -6,6 +6,7 @@ import {
   ProfileContext,
   type ProfileContextType,
 } from "../../context/ProfileContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LogoutScreen = () => {
   const context = React.useContext<ProfileContextType | null>(ProfileContext);
@@ -56,12 +57,16 @@ const LogoutScreen = () => {
             styles.secondaryButton,
             pressed && styles.buttonPressed,
           ]}
-          onPress={() => {
-            removeData("orders");
-            alert("Order history cleared!");
-          }}
-        >
-          <Text style={styles.secondaryButtonText}>Clear Order History</Text>
+          onPress={async () => {
+            await AsyncStorage.clear();
+            alert("Cleared the Data and Logged out successfully");
+            navigation.reset({
+              index: 0,
+              routes: [{ name: "Onboarding" }],
+            });
+            }}
+          >
+          <Text style={styles.secondaryButtonText}>Clear all Local Data and Logout</Text>
         </Pressable>
       </View>
     </View>

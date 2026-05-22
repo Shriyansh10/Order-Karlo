@@ -19,8 +19,8 @@ const LoginScreen = () => {
   const navigation = useNavigation<any>();
   const context = React.useContext<ProfileContextType>(ProfileContext);
   const setProfile = context!.setProfile;
-  const [email, setEmail] = React.useState("agarwalshriyansh007@gmail.com");
-  const [password, setPassword] = React.useState("root123");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   const handleSubmit = async () => {
     const userData = await getData("userData");

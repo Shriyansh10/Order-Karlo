@@ -18,9 +18,9 @@ import { getData, setData } from "../../services/local-data";
 const SignupScreen = () => {
   const context = React.useContext<ProfileContextType>(ProfileContext);
   const setProfile = context!.setProfile;
-  const [name, setName] = React.useState("Shriyansh");
-  const [email, setEmail] = React.useState("agarwalshriyansh007@gmail.com");
-  const [password, setPassword] = React.useState("root123");
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const navigation = useNavigation<any>();
 
   const handleSubmit = async () => {
